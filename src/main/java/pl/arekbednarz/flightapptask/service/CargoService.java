@@ -2,6 +2,8 @@ package pl.arekbednarz.flightapptask.service;
 
 import pl.arekbednarz.flightapptask.entity.Cargo;
 import pl.arekbednarz.flightapptask.entity.Flight;
+import pl.arekbednarz.flightapptask.entity.enums.ArrivalAirportIATACode;
+import pl.arekbednarz.flightapptask.entity.enums.DepartureAirportIATACode;
 
 import java.util.List;
 
@@ -14,8 +16,10 @@ public interface CargoService {
 
     List<Cargo> totalBaggageWeightInFlight(Integer flightNumber, String date);
 
-//    String totalCargoWeightInFlight(Integer flightNumber, String date);
-//
-//    String totalWeightInFlight(Integer flightNumber, String date);
+    List<Cargo> allCargoWhereArrivalCityEquals(ArrivalAirportIATACode code);
+
+    List<Cargo> allCargoWhereDepartureCityEquals(DepartureAirportIATACode code);
+
+
 
 }

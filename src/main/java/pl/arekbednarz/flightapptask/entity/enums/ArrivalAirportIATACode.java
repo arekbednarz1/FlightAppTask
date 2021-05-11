@@ -5,5 +5,10 @@ public enum ArrivalAirportIATACode {
     LEW,
     GDN,
     KRK,
-    PPX
+    PPX,
+    SEA,
+    YYZ,
+    YYT,
+    ANC,
+    LAX,
 }

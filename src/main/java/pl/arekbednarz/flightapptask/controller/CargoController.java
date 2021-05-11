@@ -14,8 +14,6 @@ import pl.arekbednarz.flightapptask.service.FlightService;
 
 import java.util.List;
 
-import static javax.swing.UIManager.put;
-
 @RestController
 @RequestMapping("/cargo")
 public class CargoController {
@@ -32,13 +30,11 @@ public class CargoController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addOne(@RequestBody Cargo cargo) {
        cargo.setFlight(flightService.findByFlightId(cargo.getFlightId()));
-       cargo.getCargo().stream().forEach(cargoLuggage -> cargoLuggage.setCargo(cargo));
-       cargo.getBaggage().stream().forEach(baggage -> baggage.setCargo(cargo));
+       cargo.getCargo().forEach(cargoLuggage -> cargoLuggage.setCargo(cargo));
+       cargo.getBaggage().forEach(baggage -> baggage.setCargo(cargo));
        cargoService.save(cargo);
        flightService.update(cargo.getFlightId(),cargo);
     }
-
-
 
     @GetMapping
     public ResponseEntity<List<Cargo>> findAll(){

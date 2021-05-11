@@ -2,7 +2,8 @@ package pl.arekbednarz.flightapptask.service.implementation;
 
 import org.springframework.stereotype.Service;
 import pl.arekbednarz.flightapptask.entity.Cargo;
-import pl.arekbednarz.flightapptask.entity.Flight;
+import pl.arekbednarz.flightapptask.entity.enums.ArrivalAirportIATACode;
+import pl.arekbednarz.flightapptask.entity.enums.DepartureAirportIATACode;
 import pl.arekbednarz.flightapptask.repository.BaggageRepository;
 import pl.arekbednarz.flightapptask.repository.CargoLuggageRepository;
 import pl.arekbednarz.flightapptask.repository.CargoRepository;
@@ -32,7 +33,6 @@ public class CargoServiceImp implements CargoService {
     public void save(Cargo cargo) {
         cargoRepository.save(cargo);
 
-
     }
 
     @Override
@@ -40,13 +40,15 @@ public class CargoServiceImp implements CargoService {
         return cargoRepository.totalBaggageWeightInFlight(flightNumber,date) ;
     }
 
-//    @Override
-//    public String totalCargoWeightInFlight(Integer flightNumber, String date) {
-//        return cargoRepository.totalCargoWeightInFlight(flightNumber,date);
-//    }
-//
-//    @Override
-//    public String totalWeightInFlight(Integer flightNumber, String date) {
-//        return cargoRepository.totalWeightInFlight(flightNumber,date);
-//    }
+    @Override
+    public List<Cargo> allCargoWhereArrivalCityEquals(ArrivalAirportIATACode code) {
+        return cargoRepository.allCargoWhereArrivalCityEquals(code);
+    }
+
+    @Override
+    public List<Cargo> allCargoWhereDepartureCityEquals(DepartureAirportIATACode code) {
+        return cargoRepository.allCargoWhereDepartureCityEquals(code);
+    }
+
+
 }
