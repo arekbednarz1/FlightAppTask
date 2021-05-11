@@ -1,5 +1,6 @@
 package pl.arekbednarz.flightapptask.entity;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class Cargo {
     private List<CargoLuggage> cargo;
 
     @OneToOne
+    @NotNull
     private Flight flight;
 
     @Transient

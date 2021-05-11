@@ -9,6 +9,11 @@ import pl.arekbednarz.flightapptask.entity.enums.ArrivalAirportIATACode;
 import pl.arekbednarz.flightapptask.entity.enums.DepartureAirportIATACode;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 @Entity
 @AllArgsConstructor
@@ -21,20 +26,22 @@ public class Flight {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer flightId;
 
+    @Column(unique = true)
     private Integer flightNumber;
 
     private DepartureAirportIATACode departureAirportIATACode;
 
     private ArrivalAirportIATACode arrivalAirportIATACode;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss z")
+    private String date;
+
     private String departureDate;
 
     @OneToOne
     private Cargo cargo;
 
 
-    public Flight(Integer flightId, Integer flightNumber, DepartureAirportIATACode departure, ArrivalAirportIATACode arrival, String departureDate) {
+    public Flight(Integer flightId, Integer flightNumber, DepartureAirportIATACode departure, ArrivalAirportIATACode arrival, String departureDate) throws ParseException {
         this.flightId = flightId;
         this.flightNumber = flightNumber;
         this.departureAirportIATACode = departure;

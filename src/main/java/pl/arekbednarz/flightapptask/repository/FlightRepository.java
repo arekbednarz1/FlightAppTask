@@ -10,16 +10,17 @@ import pl.arekbednarz.flightapptask.entity.Flight;
 import pl.arekbednarz.flightapptask.entity.enums.ArrivalAirportIATACode;
 import pl.arekbednarz.flightapptask.entity.enums.DepartureAirportIATACode;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface FlightRepository extends JpaRepository<Flight, Integer> {
 
 
-    @Query("SELECT f from Flight f where f.arrivalAirportIATACode= ?1 and f.departureDate= ?2")
+    @Query("SELECT f from Flight f where f.arrivalAirportIATACode= ?1 and f.date= ?2")
     List<Flight> findAllByArrivalAirportIATACodeAndDepartureDate(ArrivalAirportIATACode code, String date);
 
-    @Query("SELECT f from Flight f where f.departureAirportIATACode= ?1 and f.departureDate= ?2")
+    @Query("SELECT f from Flight f where f.departureAirportIATACode= ?1 and f.date= ?2")
     List<Flight> findAllByDepartureAirportIATACodeAndAndDepartureDate(DepartureAirportIATACode code, String date);
 
 

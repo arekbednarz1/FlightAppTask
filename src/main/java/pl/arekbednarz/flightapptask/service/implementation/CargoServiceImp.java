@@ -9,6 +9,7 @@ import pl.arekbednarz.flightapptask.repository.CargoLuggageRepository;
 import pl.arekbednarz.flightapptask.repository.CargoRepository;
 import pl.arekbednarz.flightapptask.service.CargoService;
 
+import java.util.Date;
 import java.util.List;
 
 @Service

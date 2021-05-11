@@ -1,8 +1,8 @@
 package pl.arekbednarz.flightapptask.controller;
 
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +42,7 @@ public class CargoController {
     }
 
     @GetMapping("/{number}/{date}")
-    public ResponseEntity<?> findInformationByNumberAndDate(@PathVariable("number")Integer number, @PathVariable("date")String date) throws JSONException {
+    public ResponseEntity<?> findInformationByNumberAndDate(@PathVariable("number")Integer number, @PathVariable("date")String date) {
         List<Cargo> totalBaggageWeightInFlyList = cargoService.totalBaggageWeightInFlight(number,date);
         String unitBaggage = totalBaggageWeightInFlyList.get(0).getBaggage().stream().map(Baggage::getWeightUnit).findFirst().get().toString();
         int totalBaggage = totalBaggageWeightInFlyList.stream()
@@ -61,11 +61,13 @@ public class CargoController {
 
         int totalWeight = totalBaggage+totalCargo;
 
-        String json = new JSONObject()
-                .put("Total baggage in this flight",totalBaggage+" "+unitBaggage)
-                .put("Total cargo in this ",totalCargo+" "+unitCargo)
-                .put("Total weight ", totalWeight + " " + unitBaggage)
-                .toString();
+        ObjectMapper mapper = new ObjectMapper();
+
+        ObjectNode json = mapper.createObjectNode();
+        json.put("Total baggage in this flight",totalBaggage+" "+unitBaggage);
+        json.put("Total cargo in this flight",totalCargo+" "+unitCargo);
+        json.put("Total weight ", totalWeight + " " + unitBaggage);
+
 
 
         return ResponseEntity.ok(json);

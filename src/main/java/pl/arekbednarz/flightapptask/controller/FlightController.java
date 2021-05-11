@@ -1,8 +1,7 @@
 package pl.arekbednarz.flightapptask.controller;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.springframework.data.relational.core.sql.In;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,12 @@ import pl.arekbednarz.flightapptask.entity.enums.DepartureAirportIATACode;
 import pl.arekbednarz.flightapptask.service.CargoService;
 import pl.arekbednarz.flightapptask.service.FlightService;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -33,7 +37,11 @@ public class FlightController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addOne(@RequestBody Flight flight) {
+    public void addOne(@RequestBody Flight flight) throws ParseException {
+        DateFormat inputFormat = new SimpleDateFormat("E MMM dd yyyy HH:mm:ss 'GMT'z",Locale.ENGLISH);
+        Date date = inputFormat.parse(flight.getDepartureDate());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        flight.setDate(formatter.format(date));
         flightService.save(flight);
     }
 
@@ -43,7 +51,7 @@ public class FlightController {
     }
 
     @GetMapping("/{code}/{date}")
-    public ResponseEntity<?> findInformationByCityCodeAndDate(@PathVariable("code")String code, @PathVariable("date")String date) throws JSONException {
+    public ResponseEntity<?> findInformationByCityCodeAndDate(@PathVariable("code")String code, @PathVariable("date") String date) {
         ArrivalAirportIATACode arrivalAirportIATACode = ArrivalAirportIATACode.valueOf(code);
         DepartureAirportIATACode departureAirportIATACode = DepartureAirportIATACode.valueOf(code);
 
@@ -56,27 +64,29 @@ public class FlightController {
         List<Cargo> arrivalCargo = cargoService.allCargoWhereArrivalCityEquals(arrivalAirportIATACode);
         List<Cargo> departureCargo = cargoService.allCargoWhereDepartureCityEquals(departureAirportIATACode);
 
+        String unit = arrivalCargo.get(0).getBaggage().stream().map(Baggage::getWeightUnit).findFirst().get().toString();
+
         int arrivalCargoSum =getCargoSum(arrivalCargo);
 
         int departureCargoSum = getCargoSum(departureCargo);
 
-        String json = new JSONObject()
-                .put("Total arrivals to "+code,mapOfArrivalsAndFlightNumbers.firstEntry().getKey())
-                .put("Arriving flight numbers",mapOfArrivalsAndFlightNumbers.firstEntry().getValue())
-                .put("Total departures to "+code, mapOfDeparturesAndFlightNumbers.firstEntry().getKey())
-                .put("Departing flights numbers "+code, mapOfDeparturesAndFlightNumbers.firstEntry().getValue())
-                .put("Cargo departure weight sum", departureCargoSum)
-                .put("Cargo arrival weight sum", arrivalCargoSum)
-                .toString();
+        ObjectMapper mapper = new ObjectMapper();
+
+        ObjectNode json = mapper.createObjectNode();
+        json.put("Total arrivals in this day ",mapOfArrivalsAndFlightNumbers.firstEntry().getKey());
+        json.put("Arriving flight numbers in this day",mapOfArrivalsAndFlightNumbers.firstEntry().getValue());
+        json.put("Total departures in this day", mapOfDeparturesAndFlightNumbers.firstEntry().getKey());
+        json.put("Departing flights numbers in this day"+code, mapOfDeparturesAndFlightNumbers.firstEntry().getValue());
+        json.put("Cargo departure weight sum in this day", departureCargoSum+" "+unit);
+        json.put("Cargo arrival weight sum in this day", arrivalCargoSum+" "+unit);
 
         return ResponseEntity.ok(json);
     }
 
     private int getCargoSum(List<Cargo> list) {
-        int sum = list.stream().map(c->c.getCargo().stream()
+        return list.stream().map(c->c.getCargo().stream()
                 .map(CargoLuggage::getPieces).mapToInt(Integer::intValue).sum() & c.getBaggage()
                 .stream().map(Baggage::getPieces).mapToInt(Integer::intValue).sum()).mapToInt(Integer::intValue).sum();
-        return sum;
     }
 
     private TreeMap<Integer,String> getMapOfFlightsSumAndFlightsNumbers(List<Flight> list) {

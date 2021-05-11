@@ -6,6 +6,7 @@ import pl.arekbednarz.flightapptask.entity.enums.ArrivalAirportIATACode;
 import pl.arekbednarz.flightapptask.entity.enums.DepartureAirportIATACode;
 
 
+import java.util.Date;
 import java.util.List;
 
 public interface FlightService {
