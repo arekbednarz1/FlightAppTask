@@ -8,7 +8,6 @@ import pl.arekbednarz.flightapptask.entity.enums.DepartureAirportIATACode;
 import pl.arekbednarz.flightapptask.repository.FlightRepository;
 import pl.arekbednarz.flightapptask.service.FlightService;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -48,5 +47,10 @@ public class FlightServiceImp implements FlightService {
     @Override
     public void update(Integer id, Cargo cargo) {
          flightRepository.update(id, cargo);
+    }
+
+    @Override
+    public Flight findByFlightNumber(int flightNumber) {
+        return flightRepository.findByFlightNumber(flightNumber);
     }
 }

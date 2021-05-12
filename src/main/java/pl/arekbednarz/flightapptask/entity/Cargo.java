@@ -9,6 +9,7 @@ import pl.arekbednarz.flightapptask.entity.cargo.Baggage;
 import pl.arekbednarz.flightapptask.entity.cargo.CargoLuggage;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Entity
@@ -30,6 +31,7 @@ public class Cargo {
 
     @OneToOne
     @NotNull
+    @NotEmpty
     private Flight flight;
 
     @Transient

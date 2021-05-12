@@ -23,4 +23,6 @@ public interface FlightService {
 
     void update(Integer id, Cargo cargo);
 
+    Flight findByFlightNumber(int flightNumber);
+
 }

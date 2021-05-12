@@ -4,24 +4,18 @@ import org.springframework.stereotype.Service;
 import pl.arekbednarz.flightapptask.entity.Cargo;
 import pl.arekbednarz.flightapptask.entity.enums.ArrivalAirportIATACode;
 import pl.arekbednarz.flightapptask.entity.enums.DepartureAirportIATACode;
-import pl.arekbednarz.flightapptask.repository.BaggageRepository;
-import pl.arekbednarz.flightapptask.repository.CargoLuggageRepository;
 import pl.arekbednarz.flightapptask.repository.CargoRepository;
 import pl.arekbednarz.flightapptask.service.CargoService;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
 public class CargoServiceImp implements CargoService {
 
-    BaggageRepository baggageRepository;
-    CargoLuggageRepository cargoLuggageRepository;
+
     CargoRepository cargoRepository;
 
-    public CargoServiceImp(BaggageRepository baggageRepository, CargoLuggageRepository cargoLuggageRepository, CargoRepository cargoRepository) {
-        this.baggageRepository = baggageRepository;
-        this.cargoLuggageRepository = cargoLuggageRepository;
+    public CargoServiceImp(CargoRepository cargoRepository) {
         this.cargoRepository = cargoRepository;
     }
 

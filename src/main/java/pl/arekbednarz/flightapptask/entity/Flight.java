@@ -4,16 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.validation.constraints.Size;
 import pl.arekbednarz.flightapptask.entity.enums.ArrivalAirportIATACode;
 import pl.arekbednarz.flightapptask.entity.enums.DepartureAirportIATACode;
 
 import javax.persistence.*;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+
 
 @Entity
 @AllArgsConstructor
@@ -27,6 +24,7 @@ public class Flight {
     private Integer flightId;
 
     @Column(unique = true)
+    @Size(min = 1000,max = 9999)
     private Integer flightNumber;
 
     private DepartureAirportIATACode departureAirportIATACode;
@@ -41,7 +39,7 @@ public class Flight {
     private Cargo cargo;
 
 
-    public Flight(Integer flightId, Integer flightNumber, DepartureAirportIATACode departure, ArrivalAirportIATACode arrival, String departureDate) throws ParseException {
+    public Flight(Integer flightId, Integer flightNumber, DepartureAirportIATACode departure, ArrivalAirportIATACode arrival, String departureDate) {
         this.flightId = flightId;
         this.flightNumber = flightNumber;
         this.departureAirportIATACode = departure;

@@ -1,11 +1,9 @@
 package pl.arekbednarz.flightapptask.service;
 
 import pl.arekbednarz.flightapptask.entity.Cargo;
-import pl.arekbednarz.flightapptask.entity.Flight;
 import pl.arekbednarz.flightapptask.entity.enums.ArrivalAirportIATACode;
 import pl.arekbednarz.flightapptask.entity.enums.DepartureAirportIATACode;
 
-import java.util.Date;
 import java.util.List;
 
 public interface CargoService {
