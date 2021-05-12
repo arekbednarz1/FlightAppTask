@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.arekbednarz.flightapptask.entity.Cargo;
-import pl.arekbednarz.flightapptask.entity.Flight;
 import pl.arekbednarz.flightapptask.entity.enums.WeightUnit;
 
 import javax.persistence.*;

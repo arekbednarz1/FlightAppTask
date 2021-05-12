@@ -9,7 +9,6 @@ import pl.arekbednarz.flightapptask.entity.enums.ArrivalAirportIATACode;
 import pl.arekbednarz.flightapptask.entity.enums.DepartureAirportIATACode;
 
 import javax.persistence.*;
-import java.text.ParseException;
 
 
 @Entity
