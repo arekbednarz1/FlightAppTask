@@ -17,6 +17,7 @@ import pl.arekbednarz.flightapptask.service.FlightService;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/cargo")
 public class CargoController {
 

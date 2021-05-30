@@ -1,5 +1,5 @@
 import React from 'react';
-import CargoService from '../services/CargoService';
+import FlightService from '../services/FlightService';
 
 class CargoComponent extends React.Component {
 
@@ -10,7 +10,7 @@ class CargoComponent extends React.Component {
     }
 
     componentDidMount(){
-        CargoService.getCargo().then((response) => {
+        FlightService.getCargo().then((response) => {
             this.setState({cargo: response.data})
         });
     
@@ -19,11 +19,14 @@ class CargoComponent extends React.Component {
     render (){
         return(
             <div>
-                <h1 className="text-center">Cargo list</h1>
+                <h2 className="text-center">Cargo list</h2>
                 <table className="table table-striped">
                     <thead>
                         <tr>
-                            <td></td>
+                            <td>id</td>
+                            <td>baggageId</td>
+                            <td>id</td>
+
                         </tr>
                     </thead>
                 </table>

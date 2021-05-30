@@ -25,6 +25,7 @@ import java.util.Locale;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/flight")
 public class FlightController {
