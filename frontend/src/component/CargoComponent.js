@@ -4,14 +4,15 @@ import FlightService from '../services/FlightService';
 class CargoComponent extends React.Component {
 
     constructor(){
+        super()
         this.state = {
-            cargo:[]
+            cargos:[]
         }
     }
 
     componentDidMount(){
         FlightService.getCargo().then((response) => {
-            this.setState({cargo: response.data})
+            this.setState({cargos: response.data})
         });
     
     }

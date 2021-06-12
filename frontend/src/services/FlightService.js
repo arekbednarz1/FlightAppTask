@@ -13,7 +13,7 @@ class FlightService {
     }
 
     getCargo(){
-        axios.get(CARGO_REST_API_URL);
+       return axios.get(CARGO_REST_API_URL);
     }
 }
 

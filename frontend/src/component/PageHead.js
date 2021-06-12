@@ -15,10 +15,9 @@ class PageHead extends React.Component{
     render(){
         return (
             <div class="topnav">
-            <a class="active" href="#home">MAIN</a>
-            <a href="#news">News</a>
-            <a href="#contact">Contact</a>
-            <a href="#about">About</a>
+            <a href="/flight">FLIGHT LIST</a>
+            <a href="/cargo">CARGO LIST</a>
+            <a href="/contact">NEW FLIGHT</a>
           </div>
         )
     }
