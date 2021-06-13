@@ -19,10 +19,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -36,6 +33,12 @@ public class FlightController {
     public FlightController(FlightService flightService, CargoService cargoService) {
         this.flightService = flightService;
         this.cargoService = cargoService;
+    }
+
+
+    @GetMapping("/ports")
+    public ResponseEntity<List<ArrivalAirportIATACode>> allPorts() {
+        return ResponseEntity.ok(Arrays.stream(ArrivalAirportIATACode.values()).collect(Collectors.toList()));
     }
 
     @PostMapping

@@ -15,6 +15,10 @@ class FlightService {
     getCargo(){
        return axios.get(CARGO_REST_API_URL);
     }
+
+    addFlight(){
+       return axios.post(FLIGHT_REST_API_URL);
+    }
 }
 
 export default new FlightService();

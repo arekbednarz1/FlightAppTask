@@ -17,7 +17,7 @@ class PageHead extends React.Component{
             <div class="topnav">
             <a href="/flight">FLIGHT LIST</a>
             <a href="/cargo">CARGO LIST</a>
-            <a href="/contact">NEW FLIGHT</a>
+            <a href="/addFlight">NEW FLIGHT</a>
           </div>
         )
     }
