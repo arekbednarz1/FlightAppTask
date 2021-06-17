@@ -4,6 +4,7 @@ import '../App.css';
 
 class PageHead extends React.Component{
 
+
     constructor(props){
         super(props)
 
@@ -12,12 +13,14 @@ class PageHead extends React.Component{
         }
     }
 
+
     render(){
         return (
             <div class="topnav">
             <a href="/flight">FLIGHT LIST</a>
             <a href="/cargo">CARGO LIST</a>
             <a href="/addFlight">NEW FLIGHT</a>
+        
           </div>
         )
     }
